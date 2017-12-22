@@ -58,6 +58,12 @@ app.ports.pauseVideo.subscribe(function() {
     ytPlayer.pauseVideo();
 });
 
+app.ports.getCurrentTime.subscribe(function() {
+    if (playerNotReady()) return;
+
+    app.ports.currentTime.send(ytPlayer.getCurrentTime());
+});
+
 // var debugInterval;
 
 app.ports.playVideoWithTime.subscribe(function(args) {

@@ -6,6 +6,7 @@ type Msg
     = ApiReady
     | PlayerReady
     | PlayerStateChange PlayerState
+    | CurrentTime Float
 
 type PlayerState
     = PlayerStateUnstarted
@@ -22,17 +23,21 @@ port playVideoWithTime : (Float, Float) -> Cmd msg
 port playVideo : () -> Cmd msg
 port pauseVideo : () -> Cmd msg
 
+port getCurrentTime : () -> Cmd msg
+
 --- Sub msg ports ---
 
 port apiReady : (() -> msg) -> Sub msg
 port playerReady : (() -> msg) -> Sub msg
 port playerStateChange : (Int -> msg) -> Sub msg
+port currentTime : (Float -> msg) -> Sub msg
 
 subscriptions : Sub Msg
 subscriptions = Sub.batch
                 [ apiReady (\_ -> ApiReady)
                 , playerReady (\_ -> PlayerReady)
                 , playerStateChange (PlayerStateChange << playerStateDecode)
+                , currentTime CurrentTime
                 ]
 
 --- decoder --

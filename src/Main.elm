@@ -91,6 +91,7 @@ update msg model =
                              YP.PlayerReady -> ({ model | playerReady = True}, Cmd.none)
                              YP.ApiReady -> (model, Cmd.none)
                              YP.PlayerStateChange s -> (model, Cmd.none)
+                             YP.CurrentTime t -> (model, Cmd.none)
 
 playWithIndexOffset : Model -> Int -> ( Model, Cmd Msg )
 playWithIndexOffset model index_offset = 
